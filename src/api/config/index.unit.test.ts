@@ -1,4 +1,5 @@
 jest.mock("../logger")
+jest.mock("dotenv")
 
 beforeEach(() => {
   jest.clearAllMocks();
