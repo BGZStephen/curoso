@@ -4,7 +4,10 @@ module.exports = {
   ...baseConfig,
   testRegex: "\\.unit.test\\.(js|ts)$",
   collectCoverage: true,
-  collectCoverageFrom: ["src/**/*.ts"],
+  collectCoverageFrom: [
+    "**/*.{js,jsx}",
+    "!**/node_modules/**",
+  ],
   coverageThreshold: {
     global: {
       branches: 100,
