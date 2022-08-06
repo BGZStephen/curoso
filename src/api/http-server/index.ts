@@ -2,6 +2,7 @@ import express, { json } from "express"
 import cors from "cors"
 import { config } from "../config";
 import { logger } from "../logger";
+import { userRouter } from "../users/routes";
 
 export class AppHttpServerFactory {
 	port = config.EXPRESS_PORT;
@@ -12,6 +13,8 @@ export class AppHttpServerFactory {
 
 			app.use(cors())
 			app.use(json())
+
+			app.use("/", userRouter)
 
 			app.listen(this.port, () => {
 				logger.info(`HTTP Server started on port ${this.port}`)
