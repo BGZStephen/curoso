@@ -9,10 +9,10 @@
     "unit-test": "jest --verbose -c jest.unit.config.js",
     "integration-test": "jest --verbose -c jest.integration.config.js",
     "build": "rm -rf dist && node_modules/.bin/tsc --noEmit && npm run prisma:generate && node ./esbuild.js",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "pnpify prisma generate"
   },
   "dependencies": {
-    "@prisma/client": "^4.1.1",
+    "@prisma/client": "4.1.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.12",
     "@types/cuid": "^2.0.1",
@@ -23,6 +23,7 @@
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
+    "@yarnpkg/pnpify": "^4.0.0-rc.14",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "cuid": "^2.1.8",
@@ -54,17 +55,5 @@
   },
   "devDependencies": {
     "prisma": "4.1.1"
-  },
-  "dependenciesMeta": {
-    "@prisma/client@4.1.1": {
-      "unplugged": true
-    },
-    "prisma@4.1.1": {
-      "unplugged": true
-    }
-  },
-  "resolutions": {
-    "@prisma/client@4.1.1": "patch:@prisma/client@npm:4.1.1#.yarn/patches/@prisma-client-npm-4.1.1-5483bba5df.patch",
-    "prisma@4.1.1": "patch:prisma@npm:4.1.1#.yarn/patches/prisma-npm-4.1.1-2d6fb9db4c.patch"
   }
 }
