@@ -1,6 +1,6 @@
 import { prismaClient } from "./prisma";
 
-jest.mock("@prisma/client", () => ({
+jest.mock("../../generated/prisma", () => ({
   PrismaClient: jest.fn().mockImplementation(() => {}),
 }));
 
@@ -8,7 +8,7 @@ describe("prisma", () => {
   describe("prismaClient", () => {
     test("prismaClient is an instance of PrismaClient", () => {
       expect(prismaClient).toBeInstanceOf(
-        require("@prisma/client").PrismaClient
+        require("../../generated/prisma").PrismaClient
       );
     });
   });

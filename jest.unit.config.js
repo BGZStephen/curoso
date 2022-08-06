@@ -5,7 +5,7 @@ module.exports = {
   testRegex: "\\.unit.test\\.(js|ts)$",
   collectCoverage: true,
   collectCoverageFrom: ["src/**/*.ts"],
-  coveragePathIgnorePatterns: [".yarn", "src/api/index.ts"],
+  coveragePathIgnorePatterns: [".yarn", "src/api/index.ts", "src/generated"],
   coverageThreshold: {
     global: {
       branches: 100,

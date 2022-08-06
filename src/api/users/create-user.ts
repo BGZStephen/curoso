@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { User } from "../../generated/prisma";
 import { prismaClient } from "../clients/prisma";
 import { HttpError } from "../errors/http-error";
 import { hashSync } from "bcryptjs";

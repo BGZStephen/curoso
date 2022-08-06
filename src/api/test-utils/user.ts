@@ -1,4 +1,4 @@
-import { User } from ".prisma/client";
+import { User } from "../../generated/prisma";
 import cuid from "cuid"
 
 export function generateUser(overrides: Partial<User> = {}): User {
