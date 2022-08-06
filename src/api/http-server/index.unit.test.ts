@@ -8,6 +8,12 @@ jest.mock("express", () => {
     }),
     __esModule: true,
     json: jest.fn(),
+    Router: jest.fn().mockReturnValue({
+      get: jest.fn(),
+      put: jest.fn(),
+      post: jest.fn(),
+      delete: jest.fn(),
+    })
   }
 })
 
