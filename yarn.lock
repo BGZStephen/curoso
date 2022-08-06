@@ -906,6 +906,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cors@npm:^2.8.12":
+  version: 2.8.12
+  resolution: "@types/cors@npm:2.8.12"
+  checksum: 8c45f112c7d1d2d831b4b266f2e6ed33a1887a35dcbfe2a18b28370751fababb7cd045e745ef84a523c33a25932678097bf79afaa367c6cb3fa0daa7a6438257
+  languageName: node
+  linkType: hard
+
+"@types/dotenv@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "@types/dotenv@npm:8.2.0"
+  dependencies:
+    dotenv: "*"
+  checksum: a1f524da7dc18b09bdb6c2613b9abbbe8ca575621cce4625efc7f98daf2ba07c7dbab622c9bb394507a12c5c515f9cbbbba4aeec17b801c88faeb8e8e656d460
+  languageName: node
+  linkType: hard
+
 "@types/express-serve-static-core@npm:^4.17.18":
   version: 4.17.30
   resolution: "@types/express-serve-static-core@npm:4.17.30"
@@ -1802,6 +1818,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cors@npm:^2.8.5":
+  version: 2.8.5
+  resolution: "cors@npm:2.8.5"
+  dependencies:
+    object-assign: ^4
+    vary: ^1
+  checksum: ced838404ccd184f61ab4fdc5847035b681c90db7ac17e428f3d81d69e2989d2b680cc254da0e2554f5ed4f8a341820a1ce3d1c16b499f6e2f47a1b9b07b5006
+  languageName: node
+  linkType: hard
+
 "cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
@@ -1817,12 +1843,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "curoso@workspace:."
   dependencies:
+    "@types/cors": ^2.8.12
+    "@types/dotenv": ^8.2.0
     "@types/express": ^4.17.13
     "@types/jest": ^28.1.6
     "@types/node": ^18.6.4
     "@types/winston": ^2.4.4
     "@typescript-eslint/eslint-plugin": ^5.32.0
     "@typescript-eslint/parser": ^5.32.0
+    cors: ^2.8.5
+    dotenv: ^16.0.1
     eslint: ^8.21.0
     eslint-config-prettier: ^8.5.0
     eslint-plugin-jest: ^26.7.0
@@ -1936,6 +1966,13 @@ __metadata:
   dependencies:
     esutils: ^2.0.2
   checksum: fd7673ca77fe26cd5cba38d816bc72d641f500f1f9b25b83e8ce28827fe2da7ad583a8da26ab6af85f834138cf8dae9f69b0cd6ab925f52ddab1754db44d99ce
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:*, dotenv@npm:^16.0.1":
+  version: 16.0.1
+  resolution: "dotenv@npm:16.0.1"
+  checksum: f459ffce07b977b7f15d8cc4ee69cdff77d4dd8c5dc8c85d2d485ee84655352c2415f9dd09d42b5b5985ced3be186130871b34e2f3e2569ebc72fbc2e8096792
   languageName: node
   linkType: hard
 
@@ -3958,6 +3995,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"object-assign@npm:^4":
+  version: 4.1.1
+  resolution: "object-assign@npm:4.1.1"
+  checksum: fcc6e4ea8c7fe48abfbb552578b1c53e0d194086e2e6bbbf59e0a536381a292f39943c6e9628af05b5528aa5e3318bb30d6b2e53cadaf5b8fe9e12c4b69af23f
+  languageName: node
+  linkType: hard
+
 "object-inspect@npm:^1.9.0":
   version: 1.12.2
   resolution: "object-inspect@npm:1.12.2"
@@ -5022,7 +5066,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vary@npm:~1.1.2":
+"vary@npm:^1, vary@npm:~1.1.2":
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
   checksum: ae0123222c6df65b437669d63dfa8c36cee20a504101b2fcd97b8bf76f91259c17f9f2b4d70a1e3c6bbcee7f51b28392833adb6b2770b23b01abec84e369660b
