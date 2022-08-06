@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { asyncwrap } from "../utils/async-wrap";
-import { createUser } from "./user-create";
+import { createUser } from "./create-user";
 
 const router = Router();
 
