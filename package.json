@@ -12,6 +12,7 @@
     "prisma:generate": "prisma generate"
   },
   "dependencies": {
+    "@prisma/client": "4.1.1",
     "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
@@ -46,5 +47,20 @@
     "src/**/*.{ts,js,json,yaml,yml,md}": [
       "prettier --write"
     ]
+  },
+  "devDependencies": {
+    "prisma": "4.1.1"
+  },
+  "dependenciesMeta": {
+    "@prisma/client@4.1.1": {
+      "unplugged": true
+    },
+    "prisma@4.1.1": {
+      "unplugged": true
+    }
+  },
+  "resolutions": {
+    "@prisma/client@4.1.1": "patch:@prisma/client@npm:4.1.1#.yarn/patches/@prisma-client-npm-4.1.1-5483bba5df.patch",
+    "prisma@4.1.1": "patch:prisma@npm:4.1.1#.yarn/patches/prisma-npm-4.1.1-2d6fb9db4c.patch"
   }
 }
