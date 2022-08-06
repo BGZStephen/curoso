@@ -1,14 +1,18 @@
-import { validateEnvProvidedConfig } from "."
-
 jest.mock("../logger")
 
 beforeEach(() => {
-  jest.clearAllMocks();  
+  jest.clearAllMocks();
 })
 
 describe("Config", () => {
   describe("validateEnvProvidedConfig", () => {
+    beforeEach(() => {
+      jest.resetModules()
+    })
+
     test("Calls process.exit with a value of 1 if there are missing environment variables", () => {
+      const { validateEnvProvidedConfig } = require(".")
+
       const process = global.process;
 
       global.process = {
@@ -25,6 +29,8 @@ describe("Config", () => {
     })
 
     test("Returns undefined when no missing variables are found", () => {
+      const { validateEnvProvidedConfig } = require(".")
+
       const process = global.process;
 
       global.process = {
@@ -48,6 +54,35 @@ describe("Config", () => {
       expect(res).toBe(undefined);
 
       global.process = process;
+    })
+
+    test("Returns default values ", () => {
+      const { config } = require(".")
+
+      expect(config).toEqual({
+        ENV: "dev",
+        EXPRESS_PORT: 3000,
+        SECRET: "",
+        API_URL: ""
+      })
+    })
+
+    test("Returns default values ", () => {
+      global.process.env = {
+        ENV: "dev",
+        EXPRESS_PORT: "3000",
+        SECRET: "secret",
+        API_URL: "url",
+      }
+
+      const { config } = require(".")
+
+      expect(config).toEqual({
+        ENV: "dev",
+        EXPRESS_PORT: 3000,
+        SECRET: "secret",
+        API_URL: "url"
+      })
     })
   })
 })
