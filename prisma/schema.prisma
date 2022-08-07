@@ -1,6 +1,6 @@
 generator client {
-  provider        = "prisma-client-js"
-  engineType      = "binary"
+  provider   = "prisma-client-js"
+  engineType = "binary"
 }
 
 datasource db {
@@ -9,12 +9,36 @@ datasource db {
 }
 
 model User {
-  id                   String                 @id @default(cuid()) @db.VarChar(30)
-  createdAt            DateTime               @default(now())
-  updatedAt            DateTime               @updatedAt
-  email                String                 @unique
-  firstName            String                 
-  lastName             String                 
-  password             String
-  lastLogin            DateTime                 
+  id               String             @id @default(cuid()) @db.VarChar(30)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  email            String             @unique
+  firstName        String
+  lastName         String
+  password         String
+  lastLogin        DateTime
+  UserOrganisation UserOrganisation[]
+}
+
+model Organisation {
+  id               String             @id @default(cuid()) @db.VarChar(30)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  name             String
+  addressLine1     String
+  addressLine2     String
+  city             String
+  country          String
+  postcode         String
+  UserOrganisation UserOrganisation[]
+}
+
+model UserOrganisation {
+  id             String       @id @default(cuid()) @db.VarChar(30)
+  userId         String
+  organisationId String
+  user           User         @relation(fields: [userId], references: [id])
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+
+  @@unique([userId, organisationId], name: "UserOrganisation_userId_organisationId_key")
 }
