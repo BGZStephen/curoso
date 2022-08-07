@@ -1,5 +1,3 @@
-import { Router } from "express";
-
 jest.mock("express", () => ({
   Router: jest.fn().mockReturnValue({
     get: jest.fn(),
@@ -15,6 +13,6 @@ beforeAll(() => {
 
 describe("routes", () => {
   test("Returns a router", () => {
-    const { userRouter } = require("./routes")
+    const { analyticsRouter } = require("./routes")
   })
 })

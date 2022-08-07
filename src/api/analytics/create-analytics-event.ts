@@ -5,7 +5,7 @@ import { hashSync } from "bcryptjs";
 
 type UserCreationParams = Omit<User, "id" | "createdAt" | "updatedAt">
 
-export async function createUser(userCreationParams: UserCreationParams): Promise<User> {
+export async function createAnalyticsEvent(userCreationParams: UserCreationParams): Promise<User> {
   const existingUser = await prismaClient.user.findFirst({
     where: {
       email: userCreationParams.email

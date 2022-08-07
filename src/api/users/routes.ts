@@ -4,6 +4,6 @@ import { createUser } from "./create-user";
 
 const router = Router();
 
-router.get("/users/:id", asyncwrap(createUser))
+router.post("/users", asyncwrap(createUser));
 
 export const userRouter = router;

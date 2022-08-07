@@ -1,6 +1,5 @@
 {
   "name": "curoso",
-  "packageManager": "yarn@3.2.2",
   "scripts": {
     "prepare": "npx husky install",
     "prettier": "prettier --write .",
@@ -9,7 +8,7 @@
     "unit-test": "jest --verbose -c jest.unit.config.js",
     "integration-test": "jest --verbose -c jest.integration.config.js",
     "build": "rm -rf dist && node_modules/.bin/tsc --noEmit && npm run prisma:generate && node ./esbuild.js",
-    "prisma:generate": "pnpify prisma generate"
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "4.1.1",
