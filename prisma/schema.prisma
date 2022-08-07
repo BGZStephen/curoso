@@ -9,15 +9,16 @@ datasource db {
 }
 
 model User {
-  id               String             @id @default(cuid()) @db.VarChar(30)
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  email            String             @unique
-  firstName        String
-  lastName         String
-  password         String
-  lastLogin        DateTime
-  UserOrganisation UserOrganisation[]
+  id                      String                   @id @default(cuid()) @db.VarChar(30)
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
+  email                   String                   @unique
+  firstName               String
+  lastName                String
+  password                String
+  lastLogin               DateTime
+  UserOrganisation        UserOrganisation[]
+  UserAuthenticationToken UserAuthenticationToken?
 }
 
 model Organisation {
@@ -36,12 +37,21 @@ model Organisation {
 
 model UserOrganisation {
   id             String       @id @default(cuid()) @db.VarChar(30)
-  userId         String
+  userId         String       @unique
   organisationId String
   user           User         @relation(fields: [userId], references: [id])
   organisation   Organisation @relation(fields: [organisationId], references: [id])
 
   @@unique([userId, organisationId], name: "UserOrganisation_userId_organisationId_key")
+}
+
+model UserAuthenticationToken {
+  id        String   @id @default(cuid()) @db.VarChar(30)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  token     String
 }
 
 model ExceptionEvent {
