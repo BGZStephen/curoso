@@ -31,6 +31,7 @@ model Organisation {
   country          String
   postcode         String
   UserOrganisation UserOrganisation[]
+  ExceptionEvent   ExceptionEvent[]
 }
 
 model UserOrganisation {
@@ -41,4 +42,15 @@ model UserOrganisation {
   organisation   Organisation @relation(fields: [organisationId], references: [id])
 
   @@unique([userId, organisationId], name: "UserOrganisation_userId_organisationId_key")
+}
+
+model ExceptionEvent {
+  id             String        @id @default(cuid()) @db.VarChar(30)
+  createdAt      DateTime
+  displayName    String
+  content        String
+  metadata       String?
+  identifiers    String?
+  Organisation   Organisation? @relation(fields: [organisationId], references: [id])
+  organisationId String?       @db.VarChar(30)
 }
