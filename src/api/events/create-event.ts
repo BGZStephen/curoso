@@ -2,6 +2,8 @@ import { ExceptionEvent } from "@prisma/client";
 import { prismaClient } from "../clients/prisma";
 import { z } from "zod";
 import { Request, Response } from "express";
+import Context from "../middleware/context";
+import { HttpError } from "../errors/http-error";
 
 type ExceptionEventCreationParams = Omit<ExceptionEvent, "id">
 
@@ -23,13 +25,32 @@ type CreateEventHandlerBody = z.infer<typeof createEventHandlerBodySchema>
 export async function createEventHandler(req: Request, res: Response) {
   const requestBody = createEventHandlerBodySchema.parse(req.body);
 
+  const ctx = Context.get(req);
+
+  if (!ctx || !ctx.organisation) {
+    throw new HttpError("Unauthorized", 403)
+  }
+
   if (requestBody.type === EventType.EXCEPTION) {
-    await createExceptionEvent(requestBody)
+    const exceptionEventCreationParams = hydrateEventFromRequestBody(requestBody, ctx.organisation.id)
+
+    const exceptionEvent = await prismaClient.exceptionEvent.create({
+      data: exceptionEventCreationParams
+    })
+
+    return exceptionEvent
   }
 }
 
-export async function createExceptionEvent(exceptionEventCreationParams: ExceptionEventCreationParams) {
-  const exceptionEvent = await prismaClient.exceptionEvent.create({
-    data: exceptionEventCreationParams
-  })
+export function hydrateEventFromRequestBody(body: CreateEventHandlerBody, organisationId: string): ExceptionEventCreationParams {
+  const { displayName, createdAt, content, metadata, identifiers } = body;
+
+  return {
+    displayName,
+    createdAt,
+    content,
+    metadata: JSON.stringify(metadata),
+    identifiers: JSON.stringify(identifiers),
+    organisationId
+  }
 }
