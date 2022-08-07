@@ -1,26 +1,35 @@
-import { User } from "@prisma/client";
+import { ExceptionEvent } from "@prisma/client";
 import { prismaClient } from "../clients/prisma";
-import { HttpError } from "../errors/http-error";
-import { hashSync } from "bcryptjs";
+import { z } from "zod";
+import { Request, Response } from "express";
 
-type UserCreationParams = Omit<User, "id" | "createdAt" | "updatedAt">
+type ExceptionEventCreationParams = Omit<ExceptionEvent, "id">
 
-export async function createAnalyticsEvent(userCreationParams: UserCreationParams): Promise<User> {
-  const existingUser = await prismaClient.user.findFirst({
-    where: {
-      email: userCreationParams.email
-    }
-  })
+enum EventType {
+  EXCEPTION = "exception"
+}
 
-  if (existingUser) {
-    throw new HttpError("A user with that email address already exists", 400)
+const createEventHandlerBodySchema = z.object({
+  type: z.nativeEnum(EventType),
+  displayName: z.string(),
+  createdAt: z.preprocess((createdAt) => new Date(z.string().parse(createdAt)), z.date()).transform(createdAt=> new Date(createdAt)),
+  content: z.string(),
+  metadata: z.record(z.string()).optional(),
+  identifiers: z.record(z.string()).optional(),
+})
+
+type CreateEventHandlerBody = z.infer<typeof createEventHandlerBodySchema>
+
+export async function createEventHandler(req: Request, res: Response) {
+  const requestBody = createEventHandlerBodySchema.parse(req.body);
+
+  if (requestBody.type === EventType.EXCEPTION) {
+    await createExceptionEvent(requestBody)
   }
+}
 
-  userCreationParams.password = hashSync(userCreationParams.password)
-
-  const user = await prismaClient.user.create({
-    data: userCreationParams,
+export async function createExceptionEvent(exceptionEventCreationParams: ExceptionEventCreationParams) {
+  const exceptionEvent = await prismaClient.exceptionEvent.create({
+    data: exceptionEventCreationParams
   })
-
-  return user;
 }
