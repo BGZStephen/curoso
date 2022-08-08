@@ -1,7 +1,7 @@
 import { Organisation, User } from '@prisma/client';
 import { Request } from 'express';
 
-export default class Context {
+export class Context {
   static bindings = new WeakMap<Request, Context>();
 
   public authenticatedser: User | null = null;

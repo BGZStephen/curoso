@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { prismaClient } from "../clients/prisma";
 import { HttpError } from "../errors/http-error";
-import Context from "./context";
+import { Context } from "./context";
 
 export async function parseOrganisationId(req: Request, res: Response, next: NextFunction) {
   const ctx = Context.get(req)
