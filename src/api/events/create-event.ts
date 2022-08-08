@@ -2,7 +2,7 @@ import { ExceptionEvent } from "@prisma/client";
 import { prismaClient } from "../clients/prisma";
 import { z } from "zod";
 import { Request, Response } from "express";
-import Context from "../middleware/context";
+import { Context } from "../middleware/context";
 import { HttpError } from "../errors/http-error";
 
 type ExceptionEventCreationParams = Omit<ExceptionEvent, "id">
