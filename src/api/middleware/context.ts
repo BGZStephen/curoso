@@ -7,9 +7,10 @@ export class Context {
   public authenticatedser: User | null = null;
   public organisation: Organisation | null = null;
     
-  static bind (req: Request) : void {
+  static bind (req: Request) : Context {
     const ctx = new Context();
     Context.bindings.set(req, ctx);
+    return ctx;
   }
     
   static get (req: Request) : Context | null {
