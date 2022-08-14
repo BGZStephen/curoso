@@ -3,11 +3,11 @@ import { prismaClient } from "../clients/prisma";
 import { HttpError } from "../errors/http-error";
 import { Context } from "./context";
 
-export async function parseOrganisationId(req: Request, res: Response, next: NextFunction) {
+export async function setAuthenticatedUser(req: Request, res: Response, next: NextFunction) {
   const ctx = Context.get(req)
 
   if (!ctx) {
-    throw new HttpError("Something went wrong", 500)
+    throw new HttpError("Something went wrong", 400)
   }
 
   const authorizationHeader = req.headers.authorization;
