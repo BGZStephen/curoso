@@ -5,11 +5,11 @@ export const userAuthenticationTokenCreateMock = jest.fn();
 
 export const prismaClient = {
   user: {
-    findFirst: jest.fn(),
-    create: jest.fn()
+    findFirst: userFindFirstMock,
+    create: userCreateMock
   },
   userAuthenticationToken: {
-    findFirst: jest.fn(),
-    create: jest.fn()
+    findFirst: userAuthenticationTokenFindFirstMock,
+    create: userAuthenticationTokenCreateMock
   }
 }
