@@ -6,3 +6,15 @@ export class HttpError extends Error {
     this.statusCode = statusCode;
   }
 }
+
+export class ForbiddenError extends HttpError {
+  constructor() {
+    super("Forbidden", 401)
+  }
+}
+
+export class UnauthorizedError extends HttpError {
+  constructor() {
+    super("Unauthorized", 403)
+  }
+}
