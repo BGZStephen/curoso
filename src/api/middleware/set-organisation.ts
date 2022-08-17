@@ -3,7 +3,7 @@ import { prismaClient } from "../clients/prisma";
 import { HttpError } from "../errors/http-error";
 import { Context } from "./context";
 
-export async function parseOrganisationId(req: Request, res: Response, next: NextFunction) {
+export async function setOrganisation(req: Request, res: Response, next: NextFunction) {
   const ctx = Context.get(req)
 
   if (!ctx) {
