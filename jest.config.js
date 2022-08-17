@@ -7,10 +7,4 @@ module.exports = {
   },
   moduleFileExtensions: ["ts", "js", "json", "node"],
   testPathIgnorePatterns: ["/_mocks_/", "/node_modules/"],
-  coveragePathIgnorePatterns: [
-    "/_mocks_/",
-    "tests/",
-    ".integration.test.ts",
-    "common/test-data",
-  ],
 };
