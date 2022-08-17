@@ -7,11 +7,11 @@ export async function parseOrganisationId(req: Request, res: Response, next: Nex
   const ctx = Context.get(req)
 
   if (!ctx) {
-    throw new HttpError("Something went wrong", 500)
+    throw new HttpError("Something went wrong", 400)
   }
 
   if (!ctx.authenticatedser) {
-    throw new HttpError("Unauthorized", 403)
+    throw new HttpError("Unauthorized", 401)
   }
 
   const userOrganisation = await prismaClient.userOrganisation.findFirst({
@@ -24,7 +24,7 @@ export async function parseOrganisationId(req: Request, res: Response, next: Nex
   })
 
   if (!userOrganisation) {
-    throw new HttpError("Unauthorized", 403)
+    throw new HttpError("Forbidden", 403)
   }
 
   ctx.organisation = userOrganisation.organisation
