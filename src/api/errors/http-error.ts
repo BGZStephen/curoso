@@ -9,12 +9,12 @@ export class HttpError extends Error {
 
 export class ForbiddenError extends HttpError {
   constructor() {
-    super("Forbidden", 401)
+    super("Forbidden", 403)
   }
 }
 
 export class UnauthorizedError extends HttpError {
   constructor() {
-    super("Unauthorized", 403)
+    super("Unauthorized", 401)
   }
 }
