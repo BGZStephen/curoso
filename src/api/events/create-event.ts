@@ -5,9 +5,9 @@ import { Request, Response } from "express";
 import { Context } from "../middleware/context";
 import { HttpError } from "../errors/http-error";
 
-type ExceptionEventCreationParams = Omit<ExceptionEvent, "id">
+export type ExceptionEventCreationParams = Omit<ExceptionEvent, "id">
 
-enum EventType {
+export enum EventType {
   EXCEPTION = "exception"
 }
 
@@ -20,7 +20,7 @@ const createEventHandlerBodySchema = z.object({
   identifiers: z.record(z.string()).optional(),
 })
 
-type CreateEventHandlerBody = z.infer<typeof createEventHandlerBodySchema>
+export type CreateEventHandlerBody = z.infer<typeof createEventHandlerBodySchema>
 
 export async function createEventHandler(req: Request, res: Response) {
   const requestBody = createEventHandlerBodySchema.parse(req.body);
@@ -43,9 +43,10 @@ export async function createEventHandler(req: Request, res: Response) {
 }
 
 export function hydrateEventFromRequestBody(body: CreateEventHandlerBody, organisationId: string): ExceptionEventCreationParams {
-  const { displayName, createdAt, content, metadata, identifiers } = body;
+  const { type, displayName, createdAt, content, metadata, identifiers } = body;
 
   return {
+    type,
     displayName,
     createdAt,
     content,
