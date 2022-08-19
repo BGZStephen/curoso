@@ -3,7 +3,7 @@ import { prismaClient } from "../clients/prisma";
 import { z } from "zod";
 import { Request, Response } from "express";
 import { Context } from "../middleware/context";
-import { HttpError } from "../errors/http-error";
+import { HttpError, UnauthorizedError } from "../errors/http-error";
 
 export type ExceptionEventCreationParams = Omit<ExceptionEvent, "id">
 
@@ -28,7 +28,7 @@ export async function createEventHandler(req: Request, res: Response) {
   const ctx = Context.get(req);
 
   if (!ctx || !ctx.organisation) {
-    throw new HttpError("Unauthorized", 403)
+    throw new UnauthorizedError()
   }
 
   if (requestBody.type === EventType.EXCEPTION) {
