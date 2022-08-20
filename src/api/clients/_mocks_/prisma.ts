@@ -7,7 +7,7 @@ export const userAuthenticationTokenCreateMock = jest.fn();
 export const userOrganisationFindFirstMock = jest.fn();
 export const userOrganisationCreateMock = jest.fn();
 
-export const exceptionEventCreateMock = jest.fn();
+export const eventCreateMock = jest.fn();
 
 export const prismaClient = {
   user: {
@@ -22,7 +22,7 @@ export const prismaClient = {
     findFirst: userOrganisationFindFirstMock,
     create: userOrganisationCreateMock
   },
-  exceptionEvent: {
-    create: exceptionEventCreateMock
+  event: {
+    create: eventCreateMock
   }
 }
