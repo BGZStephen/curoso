@@ -1,9 +1,10 @@
+import { EventType } from "@prisma/client"
 import { Request, Response } from "express"
-import { exceptionEventCreateMock } from "../clients/_mocks_/prisma"
+import { eventCreateMock } from "../clients/_mocks_/prisma"
 import { UnauthorizedError } from "../errors/http-error"
 import { Context } from "../middleware/context"
 import { generateOrganisation } from "../test-utils/organisation"
-import { hydrateEventFromRequestBody, EventType, CreateEventHandlerBody, createEventHandler } from "./create-event"
+import { hydrateEventFromRequestBody, CreateEventHandlerBody, createEventHandler } from "./create-event"
 
 jest.mock("../clients/prisma", () => require("../clients/_mocks_/prisma"))
 
@@ -58,7 +59,7 @@ describe("create-event", () => {
       const ctx = Context.bind(req);
       ctx.organisation = organisation;
 
-      exceptionEventCreateMock.mockImplementationOnce((value) => value)
+      eventCreateMock.mockImplementationOnce((value) => value)
 
       await expect(createEventHandler(req, res)).resolves.toEqual({
         data: {
