@@ -1,15 +1,11 @@
-import { ExceptionEvent } from "@prisma/client";
+import { Event, EventType } from "@prisma/client";
 import { prismaClient } from "../clients/prisma";
 import { z } from "zod";
 import { Request, Response } from "express";
 import { Context } from "../middleware/context";
-import { HttpError, UnauthorizedError } from "../errors/http-error";
+import { UnauthorizedError } from "../errors/http-error";
 
-export type ExceptionEventCreationParams = Omit<ExceptionEvent, "id">
-
-export enum EventType {
-  EXCEPTION = "exception"
-}
+export type EventCreationParams = Omit<Event, "id">
 
 const createEventHandlerBodySchema = z.object({
   type: z.nativeEnum(EventType),
@@ -34,7 +30,7 @@ export async function createEventHandler(req: Request, res: Response) {
   if (requestBody.type === EventType.EXCEPTION) {
     const exceptionEventCreationParams = hydrateEventFromRequestBody(requestBody, ctx.organisation.id)
 
-    const exceptionEvent = await prismaClient.exceptionEvent.create({
+    const exceptionEvent = await prismaClient.event.create({
       data: exceptionEventCreationParams
     })
 
@@ -42,7 +38,7 @@ export async function createEventHandler(req: Request, res: Response) {
   }
 }
 
-export function hydrateEventFromRequestBody(body: CreateEventHandlerBody, organisationId: string): ExceptionEventCreationParams {
+export function hydrateEventFromRequestBody(body: CreateEventHandlerBody, organisationId: string): EventCreationParams {
   const { type, displayName, createdAt, content, metadata, identifiers } = body;
 
   return {
