@@ -32,7 +32,7 @@ model Organisation {
   country          String
   postcode         String
   UserOrganisation UserOrganisation[]
-  ExceptionEvent   ExceptionEvent[]
+  ExceptionEvent   Event[]
 }
 
 model UserOrganisation {
@@ -54,8 +54,9 @@ model UserAuthenticationToken {
   token     String
 }
 
-model ExceptionEvent {
+model Event {
   id             String        @id @default(cuid()) @db.VarChar(30)
+  type           EventType
   createdAt      DateTime
   displayName    String
   content        String
@@ -63,4 +64,8 @@ model ExceptionEvent {
   identifiers    String?
   Organisation   Organisation? @relation(fields: [organisationId], references: [id])
   organisationId String?       @db.VarChar(30)
+}
+
+enum EventType {
+  EXCEPTION
 }
