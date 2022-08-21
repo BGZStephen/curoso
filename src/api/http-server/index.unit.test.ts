@@ -1,24 +1,9 @@
 import { AppHttpServer } from ".";
 
-jest.mock("express", () => {
-  return {
-    default: jest.fn().mockReturnValue({
-      use: jest.fn(),
-      listen: (port: number, callback: Function) => callback(),
-    }),
-    __esModule: true,
-    json: jest.fn(),
-    Router: jest.fn().mockReturnValue({
-      get: jest.fn(),
-      put: jest.fn(),
-      post: jest.fn(),
-      delete: jest.fn(),
-    })
-  }
-})
+jest.mock("express", () => require("../../../_mocks_/express"))
 
 beforeEach(() => {
-  jest.clearAllMocks();  
+  jest.clearAllMocks();
 })
 
 describe("http-server", () => {
