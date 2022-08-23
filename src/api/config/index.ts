@@ -8,13 +8,15 @@ export interface Config {
 	EXPRESS_PORT: number;
 	SECRET: string;
 	API_URL: string;
+	DATABASE_URL: string;
 }
 
 export const config: Config = {
 	ENV: process.env.ENV ?? "dev",
 	EXPRESS_PORT: parseInt(process.env.EXPRESS_PORT ?? "3000", 10),
 	SECRET: process.env.SECRET ?? "",
-	API_URL: process.env.API_URL ?? ""
+	API_URL: process.env.API_URL ?? "",
+	DATABASE_URL: process.env.DATABASE_URL ?? ""
 }
 
 export function validateEnvProvidedConfig(): void {
@@ -22,7 +24,8 @@ export function validateEnvProvidedConfig(): void {
 		"ENV",
 		"EXPRESS_PORT",
 		"SECRET",
-		"API_URL"
+		"API_URL",
+		"DATABASE_URL"
 	];
 
 	const missingConfigVariables = [];
