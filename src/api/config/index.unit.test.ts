@@ -41,11 +41,7 @@ describe("Config", () => {
           EXPRESS_PORT: "3000",
           SECRET: "secret",
           API_URL: "http://localhost:3000",
-          POSTGRES_DATABASE: "postgres",
-          POSTGRES_USER: "postgres",
-          POSTGRES_PASSWORD: "postgres",
-          POSTGRES_HOST: "localhost",
-          POSTGRES_PORT: "5432"
+          DATABASE_URL: "postgres://postgres:postgres@localhost:5432"
         }
       } as any as NodeJS.Process
 
@@ -64,7 +60,8 @@ describe("Config", () => {
         ENV: "dev",
         EXPRESS_PORT: 3000,
         SECRET: "",
-        API_URL: ""
+        API_URL: "",
+        DATABASE_URL: ""
       })
     })
 
@@ -74,6 +71,7 @@ describe("Config", () => {
         EXPRESS_PORT: "3000",
         SECRET: "secret",
         API_URL: "url",
+        DATABASE_URL: "postgres://postgres:postgres@localhost:5432"
       }
 
       const { config } = require(".")
@@ -82,7 +80,8 @@ describe("Config", () => {
         ENV: "dev",
         EXPRESS_PORT: 3000,
         SECRET: "secret",
-        API_URL: "url"
+        API_URL: "url",
+        DATABASE_URL: "postgres://postgres:postgres@localhost:5432"
       })
     })
   })
