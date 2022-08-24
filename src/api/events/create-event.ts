@@ -30,12 +30,12 @@ export async function createEventHandler(req: Request, res: Response) {
   if (requestBody.type === EventType.EXCEPTION) {
     const exceptionEventCreationParams = hydrateEventFromRequestBody(requestBody, ctx.organisation.id)
 
-    const exceptionEvent = await prismaClient.event.create({
+    await prismaClient.event.create({
       data: exceptionEventCreationParams
     })
-
-    return exceptionEvent
   }
+
+  res.sendStatus(200)
 }
 
 export function hydrateEventFromRequestBody(body: CreateEventHandlerBody, organisationId: string): EventCreationParams {
