@@ -53,7 +53,9 @@ describe("create-event", () => {
       const req = {
         body
       } as Request;
-      const res = {} as Response;
+      const res = {
+        sendStatus: jest.fn(),
+      } as any as Response;
       const organisation = generateOrganisation({})
 
       const ctx = Context.bind(req);
@@ -61,15 +63,16 @@ describe("create-event", () => {
 
       eventCreateMock.mockImplementationOnce((value) => value)
 
-      await expect(createEventHandler(req, res)).resolves.toEqual({
-        data: {
-          ...body,
-          createdAt: now,
-          metadata: JSON.stringify({}),
-          identifiers: JSON.stringify({}),
-          organisationId: organisation.id,  
-        }
-      });
+      await expect(createEventHandler(req, res)).resolves.toBe(undefined)
+
+      expect(eventCreateMock).toHaveBeenCalledWith({data: {
+        ...body,
+        createdAt: now,
+        metadata: JSON.stringify({}),
+        identifiers: JSON.stringify({}),
+        organisationId: organisation.id,  
+      }})
+      expect(res.sendStatus).toHaveBeenCalledWith(200)
     })
   })
 
