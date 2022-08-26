@@ -2,6 +2,7 @@
   "name": "curoso",
   "scripts": {
     "prepare": "npx husky install",
+    "postinstall": "npm run prisma:generate",
     "prettier": "prettier --write .",
     "eslint": "eslint --fix -c .eslintrc.js ./src/",
     "format": "npm run prettier && npm run eslint",
