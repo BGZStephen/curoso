@@ -1,7 +1,9 @@
 import winston from "winston";
 
 export function logFormatter(params: winston.Logform.TransformableInfo) {
-	return `${params.timestamp} [${params.level}]: ${params.message}`
+	const { timestamp, level, message, meta } = params;
+
+	return `${timestamp} [${level}]: ${message}${meta ? ", " + JSON.stringify(meta): ""}`
 }
 
 export function createLogger() {
