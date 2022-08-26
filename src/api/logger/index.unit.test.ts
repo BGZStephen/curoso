@@ -1,5 +1,4 @@
-const { TestWatcher } = require("jest");
-const { logFormatter } = require(".")
+import { logFormatter } from ".";
 
 beforeEach(() => {
 	jest.clearAllMocks();
@@ -8,15 +7,17 @@ beforeEach(() => {
 describe("logger", () => {
 	describe("logFormatter", () => {
 		test("Given a set of parameters, returns a formatted string", () => {
+			const meta = { key: "value" };
 			const params = {
 				timestamp: new Date().toISOString(),
 				level: "info",
-				message: "message"
+				message: "message",
+				meta
 			}
 
 			const res = logFormatter(params)
 
-			expect(res).toEqual(`${params.timestamp} [${params.level}]: ${params.message}`)
+			expect(res).toEqual(`${params.timestamp} [${params.level}]: ${params.message}, ${JSON.stringify(meta)}`)
 		})
 	})
 })
