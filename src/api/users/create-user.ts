@@ -1,11 +1,21 @@
-import { User } from "@prisma/client";
 import { prismaClient } from "../clients/prisma";
 import { HttpError } from "../errors/http-error";
 import { hashSync } from "bcryptjs";
+import z, { ZodErrorMap } from "zod";
+import { Request, Response } from "express";
 
-type UserCreationParams = Omit<User, "id" | "createdAt" | "updatedAt">
+const userCreateSchema = z.object({
+  email: z.string(generateRequiredStringParams("Email")).email("Invalid email address"),
+  firstName: z.string(generateRequiredStringParams("First name")),
+  lastName: z.string(generateRequiredStringParams("Last name")),
+  password: z.string(generateRequiredStringParams("Password"))
+}, {
+  invalid_type_error: "Unexpected body, expected an object containing email, firstName, lastName and password"
+})
 
-export async function createUser(userCreationParams: UserCreationParams): Promise<User> {
+export async function createUserHAndler(req: Request, res: Response): Promise<void> {
+  const userCreationParams = userCreateSchema.parse(req.body);
+
   const existingUser = await prismaClient.user.findFirst({
     where: {
       email: userCreationParams.email
@@ -22,5 +32,17 @@ export async function createUser(userCreationParams: UserCreationParams): Promis
     data: userCreationParams,
   })
 
-  return user;
+  res.json(user)
+}
+
+export function generateRequiredStringParams(field: string): {
+  errorMap?: ZodErrorMap;
+  invalid_type_error?: string;
+  required_error?: string;
+  description?: string;
+} {
+  return {
+    invalid_type_error: `Expected ${field.toLocaleLowerCase()} to be a string`,
+    required_error: `${field} is required`
+  }
 }
