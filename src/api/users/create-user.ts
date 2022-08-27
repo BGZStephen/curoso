@@ -9,6 +9,10 @@ const userCreateSchema = z.object({
   firstName: z.string(generateRequiredStringParams("First name")),
   lastName: z.string(generateRequiredStringParams("Last name")),
   password: z.string(generateRequiredStringParams("Password"))
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/, 
+      "Password must contain 1 uppercase character, 1 lowercase character, 1 special character, 1 number and be over 8 characters in length"
+    )
 }, {
   invalid_type_error: "Unexpected body, expected an object containing email, firstName, lastName and password"
 })
