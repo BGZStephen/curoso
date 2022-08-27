@@ -16,7 +16,7 @@ model User {
   firstName               String
   lastName                String
   password                String
-  lastLogin               DateTime
+  lastLogin               DateTime?
   UserOrganisation        UserOrganisation[]
   UserAuthenticationToken UserAuthenticationToken?
 }
