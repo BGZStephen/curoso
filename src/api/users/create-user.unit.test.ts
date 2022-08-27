@@ -64,5 +64,27 @@ describe("create-user", () => {
       ]))
       expect(res.json).not.toHaveBeenCalled()
     })
+
+    test("Throws an error when the provided password is not strong enough", async () => {
+      const user = generateUser({ password: "weak" });
+      const req = {
+        body: user
+      } as Request;
+      const res = {
+        json: jest.fn()
+      } as any as Response
+
+      await expect(createUserHAndler(req, res)).rejects.toThrow(new ZodError([
+        {
+          validation: "regex",
+          code: "invalid_string",
+          message: "Password must contain 1 uppercase character, 1 lowercase character, 1 special character, 1 number and be over 8 characters in length",
+          path: [
+            "password"
+          ],
+        }
+      ]))
+      expect(res.json).not.toHaveBeenCalled()
+    })
   })
 })
