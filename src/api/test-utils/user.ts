@@ -11,7 +11,7 @@ export function generateUser(overrides: Partial<User> = {}): User {
     firstName: "john",
     lastName: "doe",
     email: "john.doe@test.com",
-    password: cuid(),
+    password: "Password123!",
     lastLogin: now,
     ...overrides
   }
