@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { HttpError } from "../errors/http-error";
-import { generateRequiredStringParams } from "../users/create-user";
 import { parseThrowHttpError } from "./parse-throw-http-error";
+import { generateRequiredStringParams } from "./zod";
 
 beforeEach(() => {
   jest.resetAllMocks();

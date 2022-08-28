@@ -1,8 +1,9 @@
 import { prismaClient } from "../clients/prisma";
 import { HttpError } from "../errors/http-error";
 import { hashSync } from "bcryptjs";
-import z, { ZodErrorMap } from "zod";
+import z from "zod";
 import { Request, Response } from "express";
+import { generateRequiredStringParams } from "../utils/zod";
 
 const userCreateSchema = z.object({
   email: z.string(generateRequiredStringParams("Email")).email("Invalid email address"),
@@ -37,16 +38,4 @@ export async function createUserHAndler(req: Request, res: Response): Promise<vo
   })
 
   res.json(user)
-}
-
-export function generateRequiredStringParams(field: string): {
-  errorMap?: ZodErrorMap;
-  invalid_type_error?: string;
-  required_error?: string;
-  description?: string;
-} {
-  return {
-    invalid_type_error: `Expected ${field.toLocaleLowerCase()} to be a string`,
-    required_error: `${field} is required`
-  }
 }
