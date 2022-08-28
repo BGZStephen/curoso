@@ -2,11 +2,6 @@ import { httpErrorResponseHandler } from "./httpErrorResponseHandler";
 import { Request, Response } from "express";
 import { HttpError } from "../errors/http-error";
 
-jest.mock("../../common/utils/env");
-jest.mock("@sentry/serverless", () => ({
-  captureException: jest.fn(),
-}));
-
 beforeAll(() => {
   jest.clearAllMocks();
 });
@@ -30,9 +25,6 @@ describe("http-error-response-handler", () => {
 
       expect(resStatusSpy).toHaveBeenCalledWith(400);
       expect(resSendSpy).toHaveBeenCalledWith("First name is required");
-      expect(
-        require("@sentry/serverless").captureException
-      ).toHaveBeenCalledWith(err);
     });
 
     test("When an Error is sent, a response is sent with the 500 statusCode and a generic message", () => {
@@ -52,9 +44,6 @@ describe("http-error-response-handler", () => {
 
       expect(resStatusSpy).toHaveBeenCalledWith(500);
       expect(resSendSpy).toHaveBeenCalledWith("Something went wrong");
-      expect(
-        require("@sentry/serverless").captureException
-      ).toHaveBeenCalledWith(err);
     });
   });
 });
