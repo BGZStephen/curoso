@@ -4,6 +4,7 @@ import { config } from "../config";
 import { logger } from "../logger";
 import { userRouter } from "../users/routes";
 import { analyticsRouter } from "../events/routes";
+import { httpErrorResponseHandler } from "../middleware/httpErrorResponseHandler";
 
 export class AppHttpServerFactory {
 	port = config.EXPRESS_PORT;
@@ -17,6 +18,7 @@ export class AppHttpServerFactory {
 
 			app.use("/", userRouter)
 			app.use("/", analyticsRouter)
+			app.use(httpErrorResponseHandler)
 
 			app.listen(this.port, () => {
 				logger.info(`HTTP Server started on port ${this.port}`)
