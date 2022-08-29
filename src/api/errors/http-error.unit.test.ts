@@ -1,4 +1,4 @@
-import { ForbiddenError, HttpError, UnauthorizedError } from "./http-error"
+import { ForbiddenError, HttpError, UnauthorizedError, NotFoundError } from "./http-error"
 
 describe("http-error", () => {
   describe("HttpError", () => {
@@ -27,6 +27,15 @@ describe("http-error", () => {
 
       expect(error.message).toEqual("Unauthorized")
       expect(error.statusCode).toEqual(401)
+    })
+  })
+
+  describe("NotFoundError", () => {
+    test("NotFoundError is instanciated with the correct properties", () => {
+      const error = new NotFoundError();
+
+      expect(error.message).toEqual("Not found")
+      expect(error.statusCode).toEqual(404)
     })
   })
 })
