@@ -5,6 +5,7 @@ export class Context {
   static bindings = new WeakMap<Request, Context>();
 
   public authenticatedser: User | null = null;
+  public user: User | null = null;
   public organisation: Organisation | null = null;
     
   static bind (req: Request) : Context {
@@ -13,7 +14,13 @@ export class Context {
     return ctx;
   }
     
-  static get (req: Request) : Context | null {
-    return Context.bindings.get(req) || null;
+  static get (req: Request) : Context {
+    const ctx = this.bindings.get(req);
+
+    if (ctx) {
+      return ctx;
+    }
+
+    return this.bind(req);
   }
 }
