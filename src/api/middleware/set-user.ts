@@ -27,7 +27,6 @@ export async function setUser(req: Request, res: Response, next: NextFunction) {
     next();
     return;
   }
-
   
   ctx.user = user;
 
